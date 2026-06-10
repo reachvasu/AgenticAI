@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Job Matcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resume Job Matcher</h1>
+            <p class="subtitle">Upload your resume and get personalized job recommendations</p>
+        </header>
+
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="upload-section">
+                <div class="info-box">
+                    <h2>How it works</h2>
+                    <ol>
+                        <li>Upload your resume (PDF or DOCX format)</li>
+                        <li>Our AI analyzes your skills and experience</li>
+                        <li>Receive personalized job role recommendations</li>
+                    </ol>
+                </div>
+
+                <form action="{{ url_for('upload_resume') }}" method="post" enctype="multipart/form-data" class="upload-form">
+                    <div class="form-group">
+                        <label for="resume" class="file-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span class="file-text">Choose Resume File</span>
+                            <span class="file-name" id="fileName">PDF or DOCX (Max 10MB)</span>
+                        </label>
+                        <input type="file" id="resume" name="resume" accept=".pdf,.docx" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        Get Job Recommendations
+                    </button>
+                </form>
+
+                <div class="features">
+                    <div class="feature">
+                        <strong>Secure Storage</strong>
+                        <p>Your resume is securely stored in AWS S3</p>
+                    </div>
+                    <div class="feature">
+                        <strong>AI-Powered</strong>
+                        <p>Powered by AWS Bedrock for intelligent matching</p>
+                    </div>
+                    <div class="feature">
+                        <strong>Instant Results</strong>
+                        <p>Get recommendations in seconds</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

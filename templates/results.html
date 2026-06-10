@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendations - Resume Job Matcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Job Recommendations</h1>
+            <p class="subtitle">Based on your resume: {{ filename }}</p>
+        </header>
+
+        <main>
+            <div class="results-section">
+                <div class="success-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Resume analyzed successfully!
+                </div>
+
+                <div class="recommendations">
+                    <h2>Recommended Job Roles</h2>
+                    <div class="recommendations-content">
+                        {{ recommendations|safe|replace('\n', '<br>')|replace('**', '<strong>')|replace('**', '</strong>') }}
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a href="{{ url_for('index') }}" class="btn-secondary">Upload Another Resume</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
